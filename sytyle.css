@@ -1,0 +1,184 @@
+
+     
+        :root {
+            --sky-blue: #a0e5f5;
+            --sky-light: #d8f5fa;
+            --agrinho-blue: #0072bc;
+            --agrinho-green: #8cc63f;
+            --grass-dark: #4caf50;
+            --agrinho-yellow: #fff200;
+            --card-bg: #ffffff;
+            --bad-color: #ff5252;
+            --good-color: #8cc63f;
+            --text-dark: #2c3e50;
+            --innovation-color: #0288d1;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, var(--sky-blue) 0%, var(--sky-light) 100%);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        .clouds-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+        .cloud { position: absolute; background: #fff; border-radius: 50px; opacity: 0.8; animation: floatCloud linear infinite; box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
+        .cloud::before, .cloud::after { content: ''; position: absolute; background: #fff; border-radius: 50%; }
+        .cloud1 { width: 100px; height: 30px; top: 10%; left: -100px; animation-duration: 25s; }
+        .cloud1::before { width: 50px; height: 50px; top: -20px; left: 15px; }
+        .cloud1::after { width: 40px; height: 40px; top: -15px; right: 15px; }
+        .cloud2 { width: 150px; height: 50px; top: 25%; left: -150px; animation-duration: 40s; animation-delay: 5s; transform: scale(1.2); }
+        .cloud2::before { width: 70px; height: 70px; top: -30px; left: 25px; }
+        .cloud2::after { width: 60px; height: 60px; top: -20px; right: 25px; }
+        .cloud3 { width: 80px; height: 25px; top: 5%; left: -80px; animation-duration: 20s; animation-delay: 12s; opacity: 0.6; }
+        .cloud3::before { width: 40px; height: 40px; top: -15px; left: 10px; }
+
+        @keyframes floatCloud { 0% { transform: translateX(-200px); } 100% { transform: translateX(120vw); } }
+
+        h1, h2, h3, h4, .nav-btn, .btn-simulate, .agrinho-badge { font-family: 'Baloo 2', cursive; }
+
+        header {
+            text-align: center; margin-top: 30px; margin-bottom: 20px; width: 95%; max-width: 1000px;
+            background: rgba(255, 255, 255, 0.95); padding: 25px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-bottom: 8px solid var(--agrinho-green); position: relative;
+        }
+
+        h1 { font-size: clamp(2.2em, 5vw, 3.2em); color: var(--agrinho-blue); margin: 0; text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(0, 114, 188, 0.15); line-height: 1.1; }
+        .agrinho-badge { display: inline-block; background: var(--agrinho-yellow); color: var(--agrinho-blue); padding: 6px 22px; border-radius: 30px; font-size: 0.55em; vertical-align: middle; margin-left: 10px; box-shadow: 0 4px 0px rgba(200, 180, 0, 0.5); text-transform: uppercase; letter-spacing: 1px; transform: translateY(-5px) rotate(-3deg); }
+        p.subtitle { font-size: clamp(1.1em, 3vw, 1.3em); font-weight: 700; margin-top: 15px; color: var(--grass-dark); line-height: 1.4; }
+
+        .game-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 30px; width: 95%; max-width: 1000px; }
+        .nav-btn { background: #fff; border: 3px solid var(--agrinho-blue); color: var(--agrinho-blue); padding: 12px 25px; border-radius: 30px; font-size: 1.1em; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 0px var(--agrinho-blue); }
+        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 0px var(--agrinho-blue); }
+        .nav-btn:active { transform: translateY(3px); box-shadow: 0 2px 0px var(--agrinho-blue); }
+        .nav-btn.active { background: var(--agrinho-blue); color: #fff; border-color: #005a9c; box-shadow: 0 5px 0px #005a9c; }
+
+        .game-section { display: none; width: 95%; max-width: 1000px; flex-direction: column; gap: 20px; animation: fadeIn 0.4s ease-out; }
+        .game-section.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Jogo 1 - Arrasta e Solta */
+        .cards-pool { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; padding: 25px; background: rgba(255, 255, 255, 0.85); border: 3px dashed var(--agrinho-blue); border-radius: 20px; min-height: 120px; }
+        .card { background-color: var(--card-bg); border: 3px solid var(--agrinho-blue); border-radius: 15px; padding: 15px; font-weight: 800; font-family: 'Baloo 2'; font-size: 1.1em; cursor: grab; width: 165px; text-align: center; user-select: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 6px 0px var(--agrinho-blue); color: var(--agrinho-blue); }
+        .card:active { transform: translateY(4px); box-shadow: 0 2px 0px var(--agrinho-blue); }
+        .card.dragging { opacity: 0.4; }
+        .card.selected { border-color: #ffb300; box-shadow: 0 0 15px rgba(255, 179, 0, 0.8); transform: scale(1.05); }
+
+        .drop-zones { display: flex; gap: 20px; width: 100%; }
+        @media (max-width: 600px) { .drop-zones { flex-direction: column; } }
+        .drop-zone { flex: 1; min-height: 250px; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; transition: all 0.3s; border: 4px solid transparent; }
+        .drop-zone h2 { color: #fff; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); font-size: 1.6em; margin-top: 0; text-align: center; }
+        .drop-zone .cards-container { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; min-height: 150px; }
+        #zone-good { background-color: var(--good-color); border-color: #7ab32e; }
+        #zone-bad { background-color: var(--bad-color); border-color: #d32f2f; }
+
+        /* Jogo 2 - Exploração */
+        .explore-container { display: flex; gap: 25px; width: 100%; }
+        @media (max-width: 800px) { .explore-container { flex-direction: column; } }
+        .farm-map-wrapper { flex: 2; position: relative; }
+        .farm-map { width: 100%; height: 450px; background: linear-gradient(135deg, #aed581 0%, #aed581 40%, #81c784 40%, #81c784 70%, #64b5f6 70%, #64b5f6 85%, #4fc3f7 85%); border-radius: 25px; position: relative; border: 6px solid var(--agrinho-blue); overflow: hidden; box-shadow: inset 0 0 25px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.1); }
+        .map-decor-river { position: absolute; width: 100%; height: 80px; background: #29b6f6; bottom: 0; left: 0; transform: skewY(-5deg); z-index: 1; box-shadow: inset 0 5px 10px rgba(0,0,0,0.1); }
+        .map-decor-forest { position: absolute; top: 15px; left: 15px; font-size: 2.2em; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.15)); z-index: 2; }
+        .map-decor-forest-right { position: absolute; top: 25px; right: 25px; font-size: 2.5em; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.15)); z-index: 2; }
+        .map-decor-crops { position: absolute; top: 45%; left: 15%; font-size: 3em; opacity: 0.35; z-index: 1; }
+        .map-decor-barn { position: absolute; top: 35%; right: 20%; font-size: 3.5em; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); z-index: 2; }
+
+        .marker { position: absolute; width: 45px; height: 45px; background-color: var(--agrinho-yellow); border: 4px solid #f39c12; border-radius: 50%; cursor: pointer; transform: translate(-50%, -50%); animation: pulseMarker 1.4s infinite; z-index: 10; box-shadow: 0 6px 12px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.6em; transition: all 0.2s; touch-action: manipulation; }
+        .marker:hover { transform: translate(-50%, -50%) scale(1.25); background-color: #fff; box-shadow: 0 8px 16px rgba(0,0,0,0.4); }
+        .marker.found { background-color: #8cc63f; border-color: #27ae60; animation: none; box-shadow: 0 3px 6px rgba(0,0,0,0.15); opacity: 0.9; }
+        @keyframes pulseMarker { 0% { box-shadow: 0 0 0 0 rgba(255, 242, 0, 0.8); } 70% { box-shadow: 0 0 0 20px rgba(255, 242, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 242, 0, 0); } }
+
+        .explore-side-panel { flex: 1; background: #fff; padding: 22px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 4px solid var(--innovation-color); display: flex; flex-direction: column; gap: 15px; }
+        .explore-side-panel h3 { margin: 0; color: var(--innovation-color); text-align: center; font-size: 1.6em; }
+        .progress-bar-container { width: 100%; height: 35px; background-color: #e2e8f0; border-radius: 20px; overflow: hidden; border: 3px solid #cbd5e1; position: relative; }
+        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #38bdf8, #0288d1); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-family: 'Baloo 2'; font-size: 1.1em; transition: width 0.6s; }
+        .collectibles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 12px; margin-top: 10px; }
+        .collectible-slot { aspect-ratio: 1; background: #f1f5f9; border: 3px dashed #94a3b8; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8em; opacity: 0.4; transition: all 0.4s; }
+        .collectible-slot.unlocked { background: #e0f2fe; border: 3px solid var(--innovation-color); opacity: 1; transform: scale(1.05); box-shadow: 0 4px 8px rgba(0,0,0,0.1); animation: popBadge 0.5s ease-out; }
+
+        /* Jogo 3 - Simulador */
+        .sim-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 25px; width: 100%; }
+        @media (max-width: 850px) { .sim-container { grid-template-columns: 1fr; } }
+        .decision-panel { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 4px solid var(--grass-dark); }
+        .decision-panel h3 { font-size: 1.8em; margin-top: 0; color: var(--grass-dark); border-bottom: 3px dashed #eee; padding-bottom: 10px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 800; margin-bottom: 8px; color: var(--agrinho-blue); font-size: 1.1em; }
+        .form-group input[type="text"], .form-group select { width: 100%; padding: 12px; border: 3px solid #e0e0e0; border-radius: 12px; font-family: 'Nunito'; font-size: 1em; font-weight: 600; transition: border-color 0.3s; }
+        .form-group input[type="text"]:focus, .form-group select:focus { border-color: var(--agrinho-blue); outline: none; }
+        .radio-group { display: flex; flex-direction: column; gap: 10px; background: #f8fcf8; padding: 15px; border-radius: 12px; border: 2px solid #e8f5e9; }
+        .radio-label { display: flex; align-items: flex-start; gap: 12px; font-size: 1em; cursor: pointer; font-weight: 700; color: var(--text-dark); }
+        .radio-label input { margin-top: 5px; transform: scale(1.2); accent-color: var(--agrinho-green); }
+        .radio-desc { color: #666; font-size: 0.85em; display: block; font-weight: 600; margin-top: 3px; }
+        .btn-simulate { width: 100%; background: var(--agrinho-yellow); color: var(--agrinho-blue); padding: 18px; border: none; border-radius: 15px; font-size: 1.5em; cursor: pointer; transition: all 0.2s; box-shadow: 0 6px 0px rgba(200, 180, 0, 0.8); margin-top: 10px; }
+        .btn-simulate:hover { transform: translateY(-2px); box-shadow: 0 8px 0px rgba(200, 180, 0, 0.8); }
+        .btn-simulate:active { transform: translateY(4px); box-shadow: 0 2px 0px rgba(200, 180, 0, 0.8); }
+
+        .results-dashboard { display: flex; flex-direction: column; gap: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
+        .stat-card { background: #fff; padding: 20px; border-radius: 20px; text-align: center; box-shadow: 0 8px 15px rgba(0,0,0,0.1); border-bottom: 6px solid #ccc; }
+        .stat-card h4 { margin: 0 0 10px 0; color: #7f8c8d; font-size: 1.1em; }
+        .stat-card .value { font-size: 1.8em; font-weight: 800; font-family: 'Baloo 2'; }
+        .stat-profit { border-color: #4caf50; } .stat-profit .value { color: #4caf50; }
+        .stat-yield { border-color: #f39c12; } .stat-yield .value { color: #f39c12; }
+        .stat-env { border-color: #3498db; } .stat-env .value { color: #3498db; }
+
+        .action-controls { display: flex; gap: 10px; margin-top: 15px; padding: 15px; background: #fff; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); justify-content: center; flex-wrap: wrap; }
+        .btn-action-db { padding: 12px 20px; border: none; border-radius: 12px; font-family: 'Baloo 2'; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 0px rgba(0,0,0,0.2); color: white; }
+        .btn-action-db:active { transform: translateY(4px); box-shadow: 0 0px 0px; }
+        .btn-voltar { background: #95a5a6; }
+        .btn-recomecar { background: #e74c3c; }
+        .btn-continuar { background: var(--agrinho-blue); font-size: 1.2em; padding: 12px 30px; }
+
+        .balance-container { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 8px 15px rgba(0,0,0,0.1); text-align: center; }
+        .balance-bar { width: 100%; height: 30px; background: #eee; border-radius: 15px; display: flex; overflow: hidden; margin: 15px 0; border: 2px solid #ddd; }
+        .balance-prod { height: 100%; background: #f1c40f; transition: width 0.8s; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #333; }
+        .balance-eco { height: 100%; background: var(--good-color); transition: width 0.8s; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; }
+
+        .sat-map { background: #e0e0e0; border-radius: 20px; padding: 15px; border: 4px solid #bdc3c7; }
+        .sat-map h4 { margin: 0 0 15px 0; color: #2c3e50; display: flex; justify-content: space-between; font-size: 1.2em; }
+        .grid-field { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .grid-cell { background: #aed581; aspect-ratio: 1; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 2em; transition: background 0.3s; box-shadow: inset 0 -4px 0px rgba(0,0,0,0.1); }
+        .cell-forest { background: #27ae60; }
+        .cell-degraded { background: #d35400; }
+
+        .badges-area { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .badge { background: #fff; border: 3px solid var(--agrinho-yellow); padding: 8px 15px; border-radius: 25px; font-size: 0.9em; font-weight: 800; display: none; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); color: var(--text-dark); }
+        .badge.earned { display: flex; animation: popBadge 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popBadge { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+
+        .report-card { background: #e3f2fd; border-left: 8px solid #2196f3; padding: 20px; border-radius: 0 15px 15px 0; font-size: 1.05em; line-height: 1.5; font-weight: 600; display: none; }
+
+        .leaderboard { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 8px 15px rgba(0,0,0,0.1); border: 4px solid var(--agrinho-blue); }
+        .leaderboard table { width: 100%; border-collapse: collapse; font-size: 1em; font-weight: 600; }
+        .leaderboard th { background: var(--agrinho-blue); color: white; padding: 12px; text-align: left; font-family: 'Baloo 2'; font-size: 1.1em; }
+        .leaderboard td { padding: 12px; border-bottom: 2px solid #f5f6fa; }
+        .leaderboard tr.current-player { background: #fff9c4; font-weight: 800; color: var(--agrinho-blue); }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(5px); }
+        .modal-overlay.show { opacity: 1; pointer-events: auto; }
+        .modal-content { background: #fff; padding: 35px; border-radius: 25px; width: 90%; max-width: 500px; text-align: center; transform: scale(0.8); transition: transform 0.3s; border: 6px solid var(--agrinho-blue); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .modal-overlay.show .modal-content { transform: scale(1); }
+        .btn-action { background: var(--agrinho-blue); color: white; border: none; padding: 15px 20px; border-radius: 15px; font-family: 'Baloo 2'; font-weight: bold; cursor: pointer; margin: 5px; font-size: 1.2em; box-shadow: 0 5px 0px #005a9c; }
+        .btn-action:active { transform: translateY(4px); box-shadow: 0 1px 0px #005a9c; }
+        .btn-action.danger { background: var(--bad-color); box-shadow: 0 5px 0px #c0392b; }
+
+        footer { margin-top: 40px; background: #fff; padding: 30px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 95%; max-width: 1000px; font-size: 1em; border-top: 8px solid var(--agrinho-blue); }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
+        footer h3 { margin-top: 0; color: var(--agrinho-blue); font-size: 1.5em; border-bottom: 3px dashed #e0e0e0; padding-bottom: 10px;}
+        footer a { color: var(--agrinho-blue); text-decoration: none; font-weight: 800; transition: color 0.2s; }
+        footer a:hover { color: var(--grass-dark); text-decoration: underline; }
+        .footer-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; font-size: 0.85em; color: #fff; font-weight: bold; align-items: center; }
+        .footer-badges span { background: var(--grass-dark); padding: 8px 12px; border-radius: 10px; box-shadow: 0 3px 0px #27ae60; }
+    

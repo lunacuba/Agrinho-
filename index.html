@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa Agrinho - Desafio Agro-Tech 🌱</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="sytyle.css">
+    <script src="script.js"></script>
+    
+</head>
+<body>
+
+    <div class="clouds-container">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+    </div>
+
+    <header>
+        <h1>Programa Agrinho 2026</h1>
+        <p class="subtitle">"Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente"</p>
+        <div class="agrinho-badge">Tecnologia & Natureza</div>
+        <div id="feedback" style="font-weight: 800; font-size: 1.25em; min-height: 28px; margin-top: 15px; color: var(--agrinho-blue);"></div>
+    </header>
+
+    <nav class="game-nav">
+        <button class="nav-btn" onclick="switchGame(event, 'drag')">Nível 1: Classificação</button>
+        <button class="nav-btn" onclick="switchGame(event, 'explore')">Nível 2: Fazenda Visual</button>
+        <button class="nav-btn active" onclick="switchGame(event, 'simulator')">Nível 3: O Simulador 🏆</button>
+    </nav>
+
+    <section id="game-drag" class="game-section">
+        <div class="cards-pool" id="pool"></div>
+        <div class="drop-zones">
+            <div class="drop-zone" id="zone-good" data-type="good">
+                <h2>Prática Sustentável 🌿</h2>
+                <div class="cards-container"></div>
+            </div>
+            <div class="drop-zone" id="zone-bad" data-type="bad">
+                <h2>Prática Ruim ⚠️</h2>
+                <div class="cards-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="game-explore" class="game-section">
+        <div class="explore-container">
+            <div class="explore-side-panel">
+                <h3>Nível de Inovação</h3>
+                <div class="progress-bar-container">
+                    <div id="innov-progress" class="progress-bar-fill">0%</div>
+                </div>
+                <p style="text-align: center; font-size: 0.9em; font-weight: 700; margin: 0; color: #64748b;">
+                    Toca nos pontos amarelos no mapa para descobrir tecnologias agrícolas ecológicas!
+                </p>
+                <h4 style="margin: 10px 0 0 0; font-family: 'Baloo 2'; color: var(--text-dark);">Tecnologias Descobertas:</h4>
+                <div class="collectibles-grid" id="collectibles-list"></div>
+            </div>
+
+            <div class="farm-map-wrapper">
+                <div class="farm-map" id="farm-map">
+                    <div class="map-decor-forest">🌲🌳🌲</div>
+                    <div class="map-decor-forest-right">🌲🌳</div>
+                    <div class="map-decor-crops">🌾🌾🚜🌾🌾</div>
+                    <div class="map-decor-barn">🏡🐮</div>
+                    <div class="map-decor-river"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="game-simulator" class="game-section active">
+        <div class="sim-container">
+            <div class="decision-panel" id="form-panel">
+                <h3>🎮 O Meu Campo Agrinho</h3>
+                
+                <div class="form-group">
+                    <label>👤 Nome do Aluno / Produtor:</label>
+                    <input type="text" id="sim-name" placeholder="Ex: Lucas Silva" required>
+                </div>
+
+                <div class="form-group">
+                    <label>🗺️ Tamanho da Propriedade:</label>
+                    <select id="sim-size">
+                        <option value="100">100 ha (Pequeno Produtor)</option>
+                        <option value="1000">1000 ha (Grande Produtor)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>🌾 O que vamos plantar?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sim-crop" value="soja" checked>
+                            <div><strong>Soja</strong><span class="radio-desc">Gera muito lucro 💰, mas desgasta o solo 📉</span></div>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sim-crop" value="milho">
+                            <div><strong>Milho</strong><span class="radio-desc">Excelente opção para rodar as safras 🌽</span></div>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sim-crop" value="feijao">
+                            <div><strong>Feijão</strong><span class="radio-desc">Sustentável: repõe nutrientes naturalmente 🌱</span></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>🚜 Preparo da Terra:</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="sim-soil" value="direto" checked><div><strong>Plantio Direto 🍂</strong><span class="radio-desc">Conserva a palha e protege a terra da erosão.</span></div></label>
+                        <label class="radio-label"><input type="radio" name="sim-soil" value="convencional"><div><strong>Convencional 🚜</strong><span class="radio-desc">Aração intensa: revira a terra e a desgasta.</span></div></label>
+                        <label class="radio-label"><input type="radio" name="sim-soil" value="ruim"><div><strong>Sem preservação ⚠️</strong><span class="radio-desc">A terra fica nua e as chuvas levam os nutrientes.</span></div></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>💧 Como vamos regar?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="sim-water" value="gotejo" checked><div><strong>Gotejamento Inteligente 💧</strong><span class="radio-desc">Apenas a água necessária. Poupa 90%!</span></div></label>
+                        <label class="radio-label"><input type="radio" name="sim-water" value="aspersao"><div><strong>Aspersão Comum 💦</strong><span class="radio-desc">Chuva artificial: gasta muita água e energia.</span></div></label>
+                        <label class="radio-label"><input type="radio" name="sim-water" value="sequeiro"><div><strong>Sequeiro ☁️</strong><span class="radio-desc">Sem rega, dependemos 100% da chuva.</span></div></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>🐞 Proteção contra Pragas:</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="sim-prot" value="bio" checked><div><strong>Biológicos (Joaninhas) 🐞</strong><span class="radio-desc">A própria natureza ajuda! Protege as abelhas.</span></div></label>
+                        <label class="radio-label"><input type="radio" name="sim-prot" value="quim_resp"><div><strong>Químico Responsável 🧪</strong><span class="radio-desc">Usado só como "remédio", quando muito necessário.</span></div></label>
+                        <label class="radio-label"><input type="radio" name="sim-prot" value="quim_excesso"><div><strong>Químico em Excesso ⚠️</strong><span class="radio-desc">Mata tudo: pragas, abelhas e polui os rios.</span></div></label>
+                    </div>
+                </div>
+
+                <button class="btn-simulate" onclick="triggerSimulation()">🚀 Simular a Minha Colheita!</button>
+            </div>
+
+            <div class="results-dashboard" id="dashboard-panel" style="display: none;">
+                <h3 style="margin: 0; color: var(--agrinho-blue); font-family: 'Baloo 2'; font-size: 1.8em;">📊 Resultados da Simulação</h3>
+
+                <div class="stats-grid">
+                    <div class="stat-card stat-profit">
+                        <h4>Lucro 💰</h4>
+                        <div class="value" id="res-profit">R$ 0,00</div>
+                    </div>
+                    <div class="stat-card stat-yield">
+                        <h4>Colheita 🌾</h4>
+                        <div class="value" id="res-yield">0 sc</div>
+                    </div>
+                    <div class="stat-card stat-env">
+                        <h4>Ambiente 🌳</h4>
+                        <div class="value" id="res-env">0%</div>
+                    </div>
+                </div>
+
+                <div class="balance-container">
+                    <h4 style="margin:0 0 5px 0; color: var(--text-dark);">⚖️ Balanço Agrinho</h4>
+                    <div class="balance-bar">
+                        <div class="balance-prod" id="bar-prod" style="width: 50%;">Produção</div>
+                        <div class="balance-eco" id="bar-eco" style="width: 50%;">Preservação</div>
+                    </div>
+                    <p id="balance-msg" style="margin:0; font-size: 1.1em; font-weight: 800; color: var(--good-color);"></p>
+                </div>
+
+                <div class="sat-map">
+                    <h4>🗺️ Foto de Satélite <span id="map-weather" style="font-size: 0.8em; font-weight:600; color:var(--agrinho-blue);">Clima: Normal ☀️</span></h4>
+                    <div class="grid-field" id="sat-grid"></div>
+                </div>
+
+                <div class="badges-area" id="badges-container">
+                    <div class="badge" id="badge-abelha">🐝 Amigo das Abelhas</div>
+                    <div class="badge" id="badge-agua">💧 Mestre da Água</div>
+                    <div class="badge" id="badge-carbono">🌱 Carbono Neutro</div>
+                    <div class="badge" id="badge-agrinho">🏅 Produtor Nota 10!</div>
+                </div>
+
+                <div class="report-card" id="agronomist-report">
+                    <strong style="color:var(--agrinho-blue); font-family:'Baloo 2'; font-size: 1.2em;">👩‍🔬 O que diz a Especialista:</strong><br> <span id="report-text"></span>
+                </div>
+
+                <div class="action-controls">
+                    <button class="btn-action-db btn-voltar" onclick="voltarParaEdicao()">✏️ Alterar Escolhas</button>
+                    <button class="btn-action-db btn-recomecar" onclick="recomecarTudo()">🔄 Recomeçar</button>
+                    <button class="btn-action-db btn-continuar" onclick="salvarNaBaseDeDados()">💾 Guardar Registo!</button>
+                </div>
+
+                <div class="leaderboard" id="leaderboard-section">
+                    <h4 style="margin: 0 0 15px 0; color: var(--agrinho-blue); font-size: 1.4em; border-bottom: 2px solid #eee; padding-bottom: 5px;">🏆 Mural de Líderes (Base de Dados)</h4>
+                    <table>
+                        <thead>
+                            <tr><th>Nome</th><th>Cultura</th><th>Ambiente</th><th>Lucro</th></tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="event-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div style="font-size: 4em; margin-bottom: 10px;">🐛⚠️</div>
+            <h2 style="color: var(--bad-color); font-size: 2em; margin-top: 0;">Emergência no Campo!</h2>
+            <h3 style="color: var(--text-dark);">As Lagartas atacaram!</h3>
+            <p style="font-size: 1.1em; font-weight: 600;">Estão a comer as folhas da plantação. Como vais resolver o problema?</p>
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 25px;">
+                <button class="btn-action" onclick="resolveEvent('bio')">🐞 Largar as Vespas! (Natureza trata do assunto)</button>
+                <button class="btn-action danger" onclick="resolveEvent('quimico')">🧪 Pulverização Total! (Resolve rápido, mas polui)</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tech-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span style="position:absolute; top:15px; right:20px; font-size:2em; font-family:'Nunito'; cursor:pointer; font-weight: bold; color: #95a5a6;" onclick="document.getElementById('tech-modal').classList.remove('show')">&times;</span>
+            <div style="font-size: 5em; margin: 10px 0;" id="modal-icon"></div>
+            <h2 id="modal-title" style="color: var(--agrinho-blue); font-size: 2em; margin-top: 0;">Título</h2>
+            <p id="modal-desc" style="font-size: 1.1em; font-weight: 600; color: var(--text-dark);"></p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3>📖 O que aprendemos hoje?</h3>
+                <ul style="padding-left: 20px; margin-bottom: 0; font-weight: 600; color: var(--text-dark);">
+                    <li style="margin-bottom: 10px;"><strong>Plantio Direto:</strong> Proteger a terra com a palha antiga é como colocar um "cobertor" que guarda a água!</li>
+                    <li style="margin-bottom: 10px;"><strong>Controle Biológico:</strong> A natureza tem suas próprias defesas. Joaninhas e vespas parasitoides ajudam o agricultor de forma limpa!</li>
+                </ul>
+                
+                <h3 style="margin-top: 20px; font-size: 1.3em;">🔍 É tudo verdade! Confira aqui:</h3>
+                <p style="font-weight: 600; font-size: 0.9em; margin-top: 0;">Clique nos links abaixo para ver os dados reais nos sites oficiais:</p>
+                <ul style="padding-left: 20px; margin-bottom: 0; font-weight: 600; color: var(--text-dark);">
+                    <li style="margin-bottom: 5px;"><a href="https://educa.ibge.gov.br/" target="_blank">Portal IBGE Educa (Estatísticas & Aprendizagem)</a></li>
+                    <li style="margin-bottom: 5px;"><a href="https://www.embrapa.br/grandes-temas/sustentabilidade" target="_blank">EMBRAPA Sustentabilidade (Tecnologia do Solo)</a></li>
+                    <li style="margin-bottom: 5px;"><a href="https://sistemafaep.org.br/agrinho/" target="_blank">Site Oficial do Programa Agrinho (Paraná)</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>🛡️ Por um Futuro Sustentável</h3>
+                <p style="font-weight: 600;">O nosso desafio é produzir alimentos saudáveis para todos, mas cuidando da casa onde moramos: o Planeta Terra! 🌱</p>
+                <div class="footer-badges">
+                    <span>✅ Projeto Educativo</span>
+                    <span>💾 Base de Dados Local</span>
+                    <span>🎨 Interativo</span>
+                </div>
+            </div>
+        </div>
+    
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1); text-align: center; font-size: 0.9em; color: var(--text-dark); font-weight: 600; line-height: 1.6;">
+            <p style="margin: 0;">🏫 Colégio Estadual Monsenhor Guilherme - Ensino Fundamental, Médio e Profissional</p>
+            <p style="margin: 5px 0 0 0;">👤 Aluna: Aliss Fonseca Alvarez &nbsp;|&nbsp; 🤖 1º ano Técnico em Inteligência Artificial</p>
+            <p style="margin: 5px 0 0 0;">📍 Foz do Iguaçu - Paraná</p>
+        </div>
+    </footer>
+    
+</body>
+</html>
